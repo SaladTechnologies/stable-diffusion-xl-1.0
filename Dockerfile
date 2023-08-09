@@ -2,10 +2,19 @@ FROM saladtechnologies/sdnext:latest
 
 ARG MODEL_ID=stabilityai/stable-diffusion-xl-base-1.0
 ENV MODEL_ID=${MODEL_ID}
-ENV CKPT=${DATA_DIR}/models/Stable-diffusion/model0/sd_xl_base_1.0.safetensors
+ENV REFINER_MODEL_ID=stabilityai/stable-diffusion-xl-refiner-1.0
+ENV CKPT=${DATA_DIR}/models/Stable-diffusion/base/sd_xl_base_1.0.safetensors
+ENV REFINER=${DATA_DIR}/models/Stable-diffusion/refiner/sd_xl_refiner_1.0.safetensors
 
-RUN mkdir -p ${DATA_DIR}/models/Stable-diffusion/model0
+# Get the base model
+RUN mkdir -p ${DATA_DIR}/models/Stable-diffusion/base
 RUN wget https://huggingface.co/${MODEL_ID}/resolve/main/sd_xl_base_1.0.safetensors \
     -O ${CKPT}
 
-CMD ["--backend", "diffusers", "--use-cuda", "--no-download", "--listen", "--docs", "--ckpt", "/webui/data/models/Stable-diffusion/model0/sd_xl_base_1.0.safetensors"]
+# Get the refiner model
+RUN mkdir -p ${DATA_DIR}/models/Stable-diffusion/refiner
+RUN wget https://huggingface.co/${REFINER_MODEL_ID}/resolve/main/sd_xl_refiner_1.0.safetensors \
+    -O ${REFINER}
+
+
+CMD ["--backend", "diffusers", "--use-cuda", "--no-download", "--listen", "--docs", "--ckpt", "/webui/data/models/Stable-diffusion/base/sd_xl_base_1.0.safetensors", "--quick"]

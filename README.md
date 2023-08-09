@@ -13,6 +13,18 @@ docker build -t saladtechnologies/sdnext-sdxl10:latest .
 docker run --gpus all -p 7860:7860 saladtechnologies/sdnext-sdxl10:latest
 ```
 
+## Enable Refiner
+
+```shell
+curl -X 'POST' \
+  'http://localhost:7860/sdapi/v1/options' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "sd_model_refiner": "refiner/sd_xl_refiner_1.0.safetensors"
+}'
+```
+
 ## Test
 
 ```shell
@@ -23,11 +35,11 @@ curl -X 'POST' \
   -d '{
   "prompt": "cat",
   "batch_size": 1,
-  "n_iter": 1,
-  "steps": 50,
+  "steps": 35,
+  "refiner_start": 20,
   "cfg_scale": 7,
-  "width": 1024,
-  "height": 1024,
+  "width": 1216,
+  "height": 896,
   "send_images": true,
   "save_images": false
 }' \
