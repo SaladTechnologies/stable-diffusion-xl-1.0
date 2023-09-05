@@ -63,15 +63,15 @@ curl -X 'POST' \
   "prompt": "cat",
   "batch_size": 1,
   "steps": 35,
-  "refiner_start": 0.8,
-  "denoising_strength": 0.3,
+  "refiner_start": 20,
+  "denoising_strength": 0.43,
   "cfg_scale": 7,
   "width": 1216,
   "height": 896,
   "send_images": true,
   "save_images": false,
   "enable_hr": true,
-  "hr_second_pass_steps": 15,
+  "hr_second_pass_steps": 35,
   "hr_upscaler": "None"
 }' \
  -o ./response.json
