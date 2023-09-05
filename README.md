@@ -3,8 +3,12 @@ This uses the sdnext api container to serve stable diffusion xl 1.0
 
 ## Build
 
-```
-docker buildx build -t saladtechnologies/sdnext-sdxl10 --provenance=false --output type=docker .
+```shell
+docker buildx build \
+-t saladtechnologies/sdnext-sdxl10 \
+--provenance=false \
+--output type=docker \
+.
 ```
 
 ## Run
