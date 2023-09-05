@@ -4,14 +4,21 @@ This uses the sdnext api container to serve stable diffusion xl 1.0
 ## Build
 
 ```
-docker build -t saladtechnologies/sdnext-sdxl10:latest .
+docker buildx build -t saladtechnologies/sdnext-sdxl10 --provenance=false --output type=docker .
 ```
 
 ## Run
 
+```shell
+docker run \
+--rm \
+--gpus all \
+-p 7860:7860 \
+-e PORT=7860 \
+-e HOST=0.0.0.0 \
+saladtechnologies/sdnext-sdxl10:latest
 ```
-docker run --gpus all -p 7860:7860 saladtechnologies/sdnext-sdxl10:latest
-```
+> Set `HOST` to `*` to listen on ipv6 interfaces.
 
 ## Enable Refiner
 
