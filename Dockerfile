@@ -27,5 +27,5 @@ CMD ["/bin/bash", "-c", "${INSTALLDIR}/entrypoint.sh \
     --docs \
     --ckpt /webui/data/models/Stable-diffusion/base/sd_xl_base_1.0.safetensors \
     --quick \
-    --server-name ${HOST} \
+    --server-name \"${HOST}\" \
     --port ${PORT}" ]

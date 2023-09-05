@@ -22,7 +22,23 @@ docker run \
 -e HOST=0.0.0.0 \
 saladtechnologies/sdnext-sdxl10:latest
 ```
-> Set `HOST` to `*` to listen on ipv6 interfaces.
+
+For ipv6 networking, make sure you have the network created:
+```shell
+docker network create --ipv6 --subnet 2001:0DB8::/112 ip6net
+```
+
+and then run the container with the network and the host set to `[::]` (ipv6 all interfaces)
+```shell
+docker run \
+--rm \
+--gpus all \
+-p 7860:7860 \
+-e PORT=7860 \
+-e HOST='[::]' \
+--network="ip6net" \
+saladtechnologies/sdnext-sdxl10:latest
+```
 
 ## Enable Refiner
 
@@ -48,6 +64,7 @@ curl -X 'POST' \
   "batch_size": 1,
   "steps": 35,
   "refiner_start": 20,
+  "denoising_strength": 0.57,
   "cfg_scale": 7,
   "width": 1216,
   "height": 896,
