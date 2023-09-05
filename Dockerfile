@@ -16,5 +16,16 @@ RUN mkdir -p ${DATA_DIR}/models/Stable-diffusion/refiner
 RUN wget https://huggingface.co/${REFINER_MODEL_ID}/resolve/main/sd_xl_refiner_1.0.safetensors \
     -O ${REFINER}
 
+ENV HOST='0.0.0.0'
+ENV PORT=7860
 
-CMD ["--backend", "diffusers", "--use-cuda", "--no-download", "--listen", "--docs", "--ckpt", "/webui/data/models/Stable-diffusion/base/sd_xl_base_1.0.safetensors", "--quick"]
+ENTRYPOINT [  ]
+CMD ["/bin/bash", "-c", "${INSTALLDIR}/entrypoint.sh \
+    --backend diffusers \
+    --use-cuda \
+    --no-download \
+    --docs \
+    --ckpt /webui/data/models/Stable-diffusion/base/sd_xl_base_1.0.safetensors \
+    --quick \
+    --server-name ${HOST} \
+    --port ${PORT}" ]
